@@ -1,3 +1,16 @@
+@font-face {
+  font-family: "FuturaTSNewHeavy";
+  src: local('FuturaTSNewHeavy'), url('./assets/fonts/FuturaTSNewHeavy.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'FuturaTSNewExtraBold';
+  src: local('FuturaTSNewExtraBold'), url('./assets/fonts/FuturaTSNewExtraBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;}
+
 .App {
   text-align: center;
 }
