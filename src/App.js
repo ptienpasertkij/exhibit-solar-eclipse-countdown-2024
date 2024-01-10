@@ -1,7 +1,7 @@
 // import logo from "./logo.svg";
 import "./App.css";
 
-import { Container, Typography, Box } from "@mui/material";
+import { Typography, Box } from "@mui/material";
 import React, { useState, useEffect, useCallback } from "react";
 import most_logo from "./assets/img/MOSTlogo_white.png";
 import earth_image from "./assets/img/temp_earth.png";
@@ -9,9 +9,10 @@ import qr_code from "./assets/img/solar_eclipse_QR_code.png";
 import eclipse_logo from "./assets/img/eclipse_logo_png.png";
 
 // Constants
-const eclipseDate = new Date("April 8, 2024 15:22:00 EDT");
-const earthImageSize = "245px";
-const qrCodeSize = "200px";
+const eclipseDate = new Date("April 8, 2024 14:09:00 EDT");
+const earthImageSize = "348px";
+const earthImageHeight_temp = "315px";
+const qrCodeSize = "260px";
 
 const TimeUnitDisplay = ({ value, unit }) => {
   return (
@@ -20,19 +21,23 @@ const TimeUnitDisplay = ({ value, unit }) => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        mx: 2
+        mx: 5
       }}
     >
       <Typography
         component="span"
-        sx={{ fontSize: { xs: "4rem", sm: "3em" }, fontWeight: "bold" }}
+        sx={{
+          fontSize: { xs: "4rem", sm: "12em" },
+          fontWeight: "bold",
+          lineHeight: 1
+        }}
       >
         {value}
       </Typography>
       <Typography
         component="span"
         sx={{
-          fontSize: { xs: "1.5rem", sm: "1.5rem" },
+          fontSize: { xs: "1.5rem", sm: "2.5rem" },
           textTransform: "uppercase"
         }}
       >
@@ -45,7 +50,7 @@ const TimeUnitDisplay = ({ value, unit }) => {
 export default function App() {
   const calculateTimeToEclipse = useCallback(() => {
     const now = new Date();
-    const difference = now - eclipseDate;
+    const difference = eclipseDate - now;
 
     return {
       days: Math.abs(Math.floor(difference / (1000 * 60 * 60 * 24))),
@@ -73,18 +78,19 @@ export default function App() {
   }, [calculateTimeToEclipse]);
 
   return (
-    <Container
-      maxWidth="xl"
+    <Box
       sx={{
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
         border: "5px solid red",
         backgroundColor: "black",
-        mt: 7,
-        height: "calc(100vh - 110px)"
+        width: "100vw",
+        height: "100vh",
+        boxSizing: "border-box"
       }}
     >
+      {/* Header */}
       <Box
         sx={{
           pt: 5,
@@ -98,29 +104,29 @@ export default function App() {
           variant="h3"
           sx={{
             fontFamily: "FuturaTSNewHeavy",
-            fontSize: { xs: "1.5rem", sm: "3.25rem" },
-            fontWeight: "bold"
+            fontSize: { xs: "1.5rem", sm: "4.5rem" },
+            fontWeight: "bold",
+            lineHeight: 0.6
           }}
         >
-          {eventPassed
-            ? "TIME ELAPSED SINCE THE 2024"
-            : "COUNTDOWN TO THE 2024"}
+          {eventPassed ? "TIME ELAPSED SINCE " : "COUNTDOWN TO "}
         </Typography>
-        <img
-          src={eclipse_logo}
-          alt="eclipse_logo"
-          style={{ maxWidth: "200px", margin: "0 0 20px 0" }}
-        ></img>
-
         <Typography
           variant="h3"
           sx={{
-            fontSize: { xs: "1.5rem", sm: "3rem" },
-            fontWeight: "bold"
+            fontFamily: "FuturaTSNewHeavy",
+            fontSize: { xs: "1.5rem", sm: "4.5rem" },
+            fontWeight: "bold",
+            mb: 3
           }}
         >
           APRIL 8, 2024
         </Typography>
+        <img
+          src={eclipse_logo}
+          alt="eclipse_logo"
+          style={{ maxWidth: "400px", margin: "0 0 20px 0" }}
+        ></img>
 
         {/* Display the countdown */}
         <Box
@@ -138,6 +144,16 @@ export default function App() {
             <TimeUnitDisplay value={time.minutes} unit="minutes" />
           )}
         </Box>
+
+        {/* <Typography
+          variant="h3"
+          sx={{
+            mt: 3,
+            fontSize: { xs: "1.5rem", sm: "4.5rem" }
+          }}
+        >
+          APRIL 8, 2024
+        </Typography> */}
       </Box>
 
       <Box
@@ -156,12 +172,13 @@ export default function App() {
             flex: "1", // Allow the box to grow
             display: "flex",
             paddingLeft: "50px",
-            marginRight: "-50px"
+            marginRight: "-50px",
+            pb: 5
           }}
         >
           <img
             src={most_logo}
-            style={{ width: "100%", maxWidth: "245px" }}
+            style={{ width: "100%", maxWidth: "400px" }}
             alt="MoST Logo"
           />
         </Box>
@@ -174,7 +191,11 @@ export default function App() {
             mx: 5
           }}
         >
-          <img src={earth_image} style={{ width: "100%" }} alt="Earth" />
+          <img
+            src={earth_image}
+            style={{ width: "100%", height: earthImageHeight_temp }}
+            alt="Earth"
+          />
         </Box>
 
         {/* QR Code */}
@@ -183,23 +204,28 @@ export default function App() {
           sx={{
             flex: "1", // Allow the box to grow
             display: "flex",
-            alignItems: "center", // Center the content within the box
+            alignItems: "flex-end", // Center the content within the box
             justifyContent: "center", // Center the content within the box
             flexDirection: "column",
-            marginBottom: `calc((${earthImageSize} - ${qrCodeSize}) / 2)` // Center the QR code vertically
+            paddingRight: 20,
+            // alignSelf: "flex-end", // This will handle the vertical alignment of the QR code
+            // paddingLeft: "150px",
+            // marginBottom: `calc((${earthImageSize} - ${qrCodeSize}) / 2)` // Center the QR code vertically
+            mb: 15
           }}
         >
           <Typography
-            fontFamily={"FuturaTSNewExtraBold"}
+            fontFamily={"FuturaTSNewMedium"}
             fontSize={"1.5rem"}
             textAlign="center"
           >
-            Scan the QR Code for more about the <br />
-            Solar Eclipse Festival at the MOST!
+            Scan the QR Code for more <br /> about the Solar Eclipse Festival{" "}
+            <br />
+            at the MOST!
           </Typography>
           <img src={qr_code} style={{ height: qrCodeSize }} alt="QR Code" />
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 }
