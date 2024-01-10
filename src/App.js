@@ -1,8 +1,6 @@
-// import logo from "./logo.svg";
-import "./App.css";
-
 import { Typography, Box } from "@mui/material";
 import React, { useState, useEffect, useCallback } from "react";
+import TimeUnitDisplay from "./TimeUnitDisplay";
 import most_logo from "./assets/img/MOSTlogo_white.png";
 import earth_image from "./assets/img/temp_earth.png";
 import qr_code from "./assets/img/solar_eclipse_QR_code.png";
@@ -14,39 +12,6 @@ const earthImageSize = "348px";
 const earthImageHeight_temp = "315px";
 const qrCodeSize = "260px";
 
-const TimeUnitDisplay = ({ value, unit }) => {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        mx: 5
-      }}
-    >
-      <Typography
-        component="span"
-        sx={{
-          fontSize: { xs: "4rem", sm: "12em" },
-          fontWeight: "bold",
-          lineHeight: 1
-        }}
-      >
-        {value}
-      </Typography>
-      <Typography
-        component="span"
-        sx={{
-          fontSize: { xs: "1.5rem", sm: "2.5rem" },
-          textTransform: "uppercase"
-        }}
-      >
-        {unit}
-      </Typography>
-    </Box>
-  );
-};
-
 export default function App() {
   const calculateTimeToEclipse = useCallback(() => {
     const now = new Date();
@@ -55,7 +20,7 @@ export default function App() {
     return {
       days: Math.abs(Math.floor(difference / (1000 * 60 * 60 * 24))),
       hours: Math.abs(Math.floor((difference / (1000 * 60 * 60)) % 24)),
-      minutes: Math.abs(Math.floor((difference / 1000 / 60) % 60))
+      minutes: Math.abs(Math.floor((difference / 1000 / 60) % 60)),
     };
   }, []);
 
@@ -83,11 +48,10 @@ export default function App() {
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
-        border: "5px solid red",
-        backgroundColor: "black",
+        // backgroundColor: "black",
         width: "100vw",
         height: "100vh",
-        boxSizing: "border-box"
+        boxSizing: "border-box",
       }}
     >
       {/* Header */}
@@ -97,7 +61,7 @@ export default function App() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          flexGrow: 1
+          flexGrow: 1,
         }}
       >
         <Typography
@@ -106,7 +70,7 @@ export default function App() {
             fontFamily: "FuturaTSNewHeavy",
             fontSize: { xs: "1.5rem", sm: "4.5rem" },
             fontWeight: "bold",
-            lineHeight: 0.6
+            lineHeight: 0.6,
           }}
         >
           {eventPassed ? "TIME ELAPSED SINCE " : "COUNTDOWN TO "}
@@ -117,7 +81,7 @@ export default function App() {
             fontFamily: "FuturaTSNewHeavy",
             fontSize: { xs: "1.5rem", sm: "4.5rem" },
             fontWeight: "bold",
-            mb: 3
+            mb: 3,
           }}
         >
           APRIL 8, 2024
@@ -133,36 +97,32 @@ export default function App() {
           sx={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
           }}
         >
-          {time.days > 0 && <TimeUnitDisplay value={time.days} unit="days" />}
+          {time.days > 0 && (
+            <TimeUnitDisplay value={time.days} unit="days" showColon />
+          )}
           {time.hours > 0 && (
-            <TimeUnitDisplay value={time.hours} unit="hours" />
+            <TimeUnitDisplay value={time.hours} unit="hours" showColon />
           )}
           {time.minutes > 0 && (
             <TimeUnitDisplay value={time.minutes} unit="minutes" />
           )}
         </Box>
-
-        {/* <Typography
-          variant="h3"
-          sx={{
-            mt: 3,
-            fontSize: { xs: "1.5rem", sm: "4.5rem" }
-          }}
-        >
-          APRIL 8, 2024
-        </Typography> */}
       </Box>
 
+      {/* Bottom section with MoST Logo, Earth sticker placement, and QR code */}
       <Box
         sx={{
           width: "100%",
           display: "flex",
           // alignItems: "center",
           alignItems: "flex-end", // This will handle the vertical alignment of the Earth image
-          justifyContent: "space-between" // This will handle the spacing around the Earth image
+          justifyContent: "space-between", // This will handle the spacing around the Earth image
+          // paddingX: 0,
+          boxSizing: "border-box",
+          overflow: "hidden",
         }}
       >
         {/* MoST Logo */}
@@ -171,14 +131,19 @@ export default function App() {
           sx={{
             flex: "1", // Allow the box to grow
             display: "flex",
-            paddingLeft: "50px",
-            marginRight: "-50px",
-            pb: 5
+            // paddingLeft: "50px",
+            // marginRight: "-50px",
           }}
         >
           <img
             src={most_logo}
-            style={{ width: "100%", maxWidth: "400px" }}
+            style={{
+              width: "100%",
+              maxWidth: "400px",
+              position: "relative",
+              left: "50px",
+              bottom: "50px",
+            }}
             alt="MoST Logo"
           />
         </Box>
@@ -188,7 +153,7 @@ export default function App() {
           sx={{
             flex: "0 0 auto",
             width: earthImageSize,
-            mx: 5
+            mx: 5,
           }}
         >
           <img
@@ -204,14 +169,12 @@ export default function App() {
           sx={{
             flex: "1", // Allow the box to grow
             display: "flex",
-            alignItems: "flex-end", // Center the content within the box
+            alignItems: "center", // Center the content within the box
             justifyContent: "center", // Center the content within the box
+            paddingBottom: 15,
             flexDirection: "column",
-            paddingRight: 20,
-            // alignSelf: "flex-end", // This will handle the vertical alignment of the QR code
-            // paddingLeft: "150px",
-            // marginBottom: `calc((${earthImageSize} - ${qrCodeSize}) / 2)` // Center the QR code vertically
-            mb: 15
+            position: "relative",
+            right: "-30px",
           }}
         >
           <Typography
@@ -219,11 +182,15 @@ export default function App() {
             fontSize={"1.5rem"}
             textAlign="center"
           >
-            Scan the QR Code for more <br /> about the Solar Eclipse Festival{" "}
-            <br />
+            Scan the QR Code for more <br />
+            about the Solar Eclipse Festival <br />
             at the MOST!
           </Typography>
-          <img src={qr_code} style={{ height: qrCodeSize }} alt="QR Code" />
+          <img
+            src={qr_code}
+            style={{ height: qrCodeSize, borderRadius: "20px" }}
+            alt="QR Code"
+          />
         </Box>
       </Box>
     </Box>

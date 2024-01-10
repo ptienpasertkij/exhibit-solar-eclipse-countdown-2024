@@ -1,4 +1,37 @@
-html, body {
+@font-face {
+  font-family: "FuturaTSNew";
+  src: local("FuturaTSNew"),
+    url("./assets/fonts/FuturaTSNew.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FuturaTSNewHeavy";
+  src: local("FuturaTSNewHeavy"),
+    url("./assets/fonts/FuturaTSNewHeavy.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FuturaTSNewExtraBold";
+  src: local("FuturaTSNewExtraBold"),
+    url("./assets/fonts/FuturaTSNewExtraBold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FuturaTSNewMedium";
+  src: local("FuturaTSNewMedium"),
+    url("./assets/fonts/FuturaTSNewMedium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+html,
+body {
   background-color: black;
   color: white;
   height: 100vh;
@@ -10,9 +43,15 @@ html, body {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('./assets/img/star_background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100%;
 }
