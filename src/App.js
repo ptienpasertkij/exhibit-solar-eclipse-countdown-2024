@@ -103,12 +103,10 @@ export default function App() {
           {time.days > 0 && (
             <TimeUnitDisplay value={time.days} unit="days" showColon />
           )}
-          {time.hours > 0 && (
+          {(time.days > 0 || time.hours > 0) && (
             <TimeUnitDisplay value={time.hours} unit="hours" showColon />
           )}
-          {time.minutes > 0 && (
-            <TimeUnitDisplay value={time.minutes} unit="minutes" />
-          )}
+          <TimeUnitDisplay value={time.minutes} unit="minutes" />
         </Box>
       </Box>
 
