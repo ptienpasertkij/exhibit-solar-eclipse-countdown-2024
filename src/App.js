@@ -10,7 +10,7 @@ import eclipse_logo from "./assets/img/eclipse_logo_png.png";
 const eclipseDate = new Date("April 8, 2024 14:09:00 EDT");
 const earthImageSize = "348px";
 const earthImageHeight_temp = "315px";
-const qrCodeSize = "260px";
+const qrCodeSize = "280px";
 
 export default function App() {
   const calculateTimeToEclipse = useCallback(() => {

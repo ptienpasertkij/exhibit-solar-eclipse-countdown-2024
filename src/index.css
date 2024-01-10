@@ -48,7 +48,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('./assets/img/star_background.jpg');
+  background-image: url('./assets/img/star_background_cropped.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
