@@ -20,7 +20,7 @@ export default function App() {
     return {
       days: Math.abs(Math.floor(difference / (1000 * 60 * 60 * 24))),
       hours: Math.abs(Math.floor((difference / (1000 * 60 * 60)) % 24)),
-      minutes: Math.abs(Math.floor((difference / 1000 / 60) % 60)),
+      minutes: Math.abs(Math.floor((difference / 1000 / 60) % 60))
     };
   }, []);
 
@@ -51,7 +51,7 @@ export default function App() {
         // backgroundColor: "black",
         width: "100vw",
         height: "100vh",
-        boxSizing: "border-box",
+        boxSizing: "border-box"
       }}
     >
       {/* Header */}
@@ -61,7 +61,7 @@ export default function App() {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          flexGrow: 1,
+          flexGrow: 1
         }}
       >
         <Typography
@@ -70,7 +70,7 @@ export default function App() {
             fontFamily: "FuturaTSNewHeavy",
             fontSize: { xs: "1.5rem", sm: "4.5rem" },
             fontWeight: "bold",
-            lineHeight: 0.6,
+            lineHeight: 0.6
           }}
         >
           {eventPassed ? "TIME ELAPSED SINCE " : "COUNTDOWN TO "}
@@ -81,7 +81,7 @@ export default function App() {
             fontFamily: "FuturaTSNewHeavy",
             fontSize: { xs: "1.5rem", sm: "4.5rem" },
             fontWeight: "bold",
-            mb: 3,
+            mb: 3
           }}
         >
           APRIL 8, 2024
@@ -97,16 +97,27 @@ export default function App() {
           sx={{
             display: "flex",
             justifyContent: "center",
-            alignItems: "center",
+            alignItems: "center"
           }}
         >
           {time.days > 0 && (
-            <TimeUnitDisplay value={time.days} unit="days" showColon />
+            <TimeUnitDisplay
+              value={time.days}
+              unit={time?.days > 1 ? "days" : "day"}
+              showColon
+            />
           )}
           {(time.days > 0 || time.hours > 0) && (
-            <TimeUnitDisplay value={time.hours} unit="hours" showColon />
+            <TimeUnitDisplay
+              value={time.hours}
+              unit={time?.hours > 1 ? "hours" : "hour"}
+              showColon
+            />
           )}
-          <TimeUnitDisplay value={time.minutes} unit="minutes" />
+          <TimeUnitDisplay
+            value={time.minutes}
+            unit={time?.minutes > 1 ? "minutes" : "minute"}
+          />
         </Box>
       </Box>
 
@@ -120,7 +131,7 @@ export default function App() {
           justifyContent: "space-between", // This will handle the spacing around the Earth image
           // paddingX: 0,
           boxSizing: "border-box",
-          overflow: "hidden",
+          overflow: "hidden"
         }}
       >
         {/* MoST Logo */}
@@ -128,7 +139,7 @@ export default function App() {
           className="most-logo"
           sx={{
             flex: "1", // Allow the box to grow
-            display: "flex",
+            display: "flex"
             // paddingLeft: "50px",
             // marginRight: "-50px",
           }}
@@ -140,7 +151,7 @@ export default function App() {
               maxWidth: "400px",
               position: "relative",
               left: "50px",
-              bottom: "50px",
+              bottom: "50px"
             }}
             alt="MoST Logo"
           />
@@ -151,14 +162,14 @@ export default function App() {
           sx={{
             flex: "0 0 auto",
             width: earthImageSize,
-            mx: 5,
+            mx: 5
           }}
         >
-          <img
+          {/* <img
             src={earth_image}
             style={{ width: "100%", height: earthImageHeight_temp }}
             alt="Earth"
-          />
+          /> */}
         </Box>
 
         {/* QR Code */}
@@ -172,7 +183,7 @@ export default function App() {
             paddingBottom: 15,
             flexDirection: "column",
             position: "relative",
-            right: "-30px",
+            right: "-30px"
           }}
         >
           <Typography
@@ -189,6 +200,16 @@ export default function App() {
             style={{ height: qrCodeSize, borderRadius: "20px" }}
             alt="QR Code"
           />
+          <Box bgcolor="black">
+            <Typography
+              fontFamily={"Arial"}
+              fontSize={"1.5rem"}
+              letterSpacing={2}
+              mt={1}
+            >
+              most.org/solareclipse2024
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Box>

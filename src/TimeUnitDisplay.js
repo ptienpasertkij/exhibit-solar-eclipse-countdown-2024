@@ -21,6 +21,7 @@ const TimeUnitDisplay = ({ value, unit, showColon }) => {
           fontWeight="bold"
           lineHeight={1}
           fontSize={{ xs: "4rem", sm: "12em" }}
+          letterSpacing={5}
         >
           {formattedValue}
         </Typography>
@@ -29,6 +30,7 @@ const TimeUnitDisplay = ({ value, unit, showColon }) => {
           fontFamily="FuturaTSNew"
           fontSize={{ xs: "1.5rem", sm: "2.5rem" }}
           textTransform="uppercase"
+          letterSpacing={2}
         >
           {unit}
         </Typography>
