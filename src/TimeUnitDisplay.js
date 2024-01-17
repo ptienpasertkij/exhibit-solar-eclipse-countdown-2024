@@ -12,7 +12,7 @@ const TimeUnitDisplay = ({ value, unit, showColon }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
+          alignItems: "center"
         }}
       >
         <Typography
@@ -44,7 +44,7 @@ const TimeUnitDisplay = ({ value, unit, showColon }) => {
             lineHeight: 1,
             mx: 3,
             position: "relative",
-            bottom: "35px",
+            bottom: "45px"
           }}
         >
           :
@@ -57,7 +57,7 @@ const TimeUnitDisplay = ({ value, unit, showColon }) => {
 TimeUnitDisplay.propTypes = {
   value: PropTypes.number.isRequired,
   unit: PropTypes.string.isRequired,
-  showColon: PropTypes.bool,
+  showColon: PropTypes.bool
 };
 
 export default TimeUnitDisplay;

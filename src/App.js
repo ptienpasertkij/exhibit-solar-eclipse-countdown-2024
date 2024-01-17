@@ -2,15 +2,16 @@ import { Typography, Box } from "@mui/material";
 import React, { useState, useEffect, useCallback } from "react";
 import TimeUnitDisplay from "./TimeUnitDisplay";
 import most_logo from "./assets/img/MOSTlogo_white.png";
-import earth_image from "./assets/img/temp_earth.png";
+// import earth_image from "./assets/img/temp_earth.png";
+import black_circle from "./assets/img/black_circle.png";
 import qr_code from "./assets/img/solar_eclipse_QR_code.png";
 import eclipse_logo from "./assets/img/eclipse_logo_png.png";
 
 // Constants
 const eclipseDate = new Date("April 8, 2024 14:09:00 EDT");
 const earthImageSize = "348px";
-const earthImageHeight_temp = "315px";
-const qrCodeSize = "280px";
+const earthImageHeight_temp = "350px";
+const qrCodeSize = "300px";
 
 export default function App() {
   const calculateTimeToEclipse = useCallback(() => {
@@ -89,7 +90,7 @@ export default function App() {
         <img
           src={eclipse_logo}
           alt="eclipse_logo"
-          style={{ maxWidth: "400px", margin: "0 0 20px 0" }}
+          style={{ maxWidth: "400px", margin: "0 0 25px 0" }}
         ></img>
 
         {/* Display the countdown */}
@@ -165,11 +166,11 @@ export default function App() {
             mx: 5
           }}
         >
-          {/* <img
-            src={earth_image}
+          <img
+            src={black_circle}
             style={{ width: "100%", height: earthImageHeight_temp }}
             alt="Earth"
-          /> */}
+          />
         </Box>
 
         {/* QR Code */}
@@ -180,27 +181,30 @@ export default function App() {
             display: "flex",
             alignItems: "center", // Center the content within the box
             justifyContent: "center", // Center the content within the box
-            paddingBottom: 15,
+            paddingBottom: 10,
             flexDirection: "column",
             position: "relative",
             right: "-30px"
           }}
         >
-          <Typography
-            fontFamily={"FuturaTSNewMedium"}
-            fontSize={"1.5rem"}
-            textAlign="center"
+          <Box
+            sx={{
+              padding: 3,
+              borderRadius: 3,
+              backgroundColor: "rgba(0, 0, 0, .9)",
+              boxSizing: "border-box",
+            }}
           >
-            Scan the QR Code for more <br />
-            about the Solar Eclipse Festival <br />
-            at the MOST!
-          </Typography>
-          <img
-            src={qr_code}
-            style={{ height: qrCodeSize, borderRadius: "20px" }}
-            alt="QR Code"
-          />
-          <Box bgcolor="black">
+            <Typography
+              fontFamily={"FuturaTSNewMedium"}
+              fontSize={"1.5rem"}
+              textAlign="center"
+            >
+              Scan the QR Code for more <br />
+              about the Solar Eclipse Festival <br />
+              at the MOST!
+            </Typography>
+            <img src={qr_code} style={{ height: qrCodeSize }} alt="QR Code" />
             <Typography
               fontFamily={"Arial"}
               fontSize={"1.5rem"}
