@@ -1,38 +1,44 @@
 import { Typography, Box } from "@mui/material";
 import React, { useState, useEffect, useCallback } from "react";
+import moment from "moment";
+import "moment-timezone";
 import TimeUnitDisplay from "./TimeUnitDisplay";
-import most_logo from "./assets/img/MOSTlogo_white.png";
-// import earth_image from "./assets/img/temp_earth.png";
-import black_circle from "./assets/img/black_circle.png";
-import qr_code from "./assets/img/solar_eclipse_QR_code.png";
+// import most_logo from "./assets/img/MOSTlogo_white.png";
+import brcs_logo from "./assets/img/brcs_logo.png";
+import earth_image from "./assets/img/temp_earth.png";
+// import black_circle from "./assets/img/black_circle.png";
+import qr_code from "./assets/img/brcs_qr_code.png";
 import eclipse_logo from "./assets/img/eclipse_logo_png.png";
 
 // Constants
-const eclipseDate = new Date("April 8, 2024 14:09:00 EDT");
-const earthImageSize = "348px";
-const earthImageHeight_temp = "350px";
-const qrCodeSize = "300px";
+const eclipseDate = moment.tz("2024-04-08 19:09", "America/New_York");
 
 export default function App() {
   const calculateTimeToEclipse = useCallback(() => {
-    const now = new Date();
-    const difference = eclipseDate - now;
+    const now = moment.tz("America/New_York"); // Current time in New York timezone
+    const difference = eclipseDate.diff(now); // Difference in milliseconds
 
+    // Convert milliseconds to total days, hours, and minutes
+    const duration = moment.duration(difference);
+    console.log(duration);
+    console.log('days', duration.asDays());
+    console.log('hours', duration.hours());
+    console.log('minutes', duration.minutes());
     return {
-      days: Math.abs(Math.floor(difference / (1000 * 60 * 60 * 24))),
-      hours: Math.abs(Math.floor((difference / (1000 * 60 * 60)) % 24)),
-      minutes: Math.abs(Math.floor((difference / 1000 / 60) % 60))
+      days: Math.floor(duration.asDays()), // Total full days
+      hours: duration.hours(), // Hours remaining after full days
+      minutes: duration.minutes() // Minutes remaining after full hours
     };
   }, []);
 
   // State to hold the countdown time
   const [time, setTime] = useState(calculateTimeToEclipse());
-  const [eventPassed, setEventPassed] = useState(new Date() > eclipseDate);
+  const [eventPassed, setEventPassed] = useState(moment() > eclipseDate);
 
   // Update the countdown time every minute
   useEffect(() => {
     const timer = setInterval(() => {
-      const currentTime = new Date();
+      const currentTime = moment();
       if (currentTime > eclipseDate) {
         setEventPassed(true);
       }
@@ -49,10 +55,11 @@ export default function App() {
         textAlign: "center",
         display: "flex",
         flexDirection: "column",
-        // backgroundColor: "black",
         width: "100vw",
         height: "100vh",
-        boxSizing: "border-box"
+        padding: 5,
+        boxSizing: "border-box",
+        alignItems: "center"
       }}
     >
       {/* Header */}
@@ -125,96 +132,93 @@ export default function App() {
       {/* Bottom section with MoST Logo, Earth sticker placement, and QR code */}
       <Box
         sx={{
-          width: "100%",
+          height: "30%",
+          maxHeight: "30%",
+          width: "90%",
           display: "flex",
-          // alignItems: "center",
-          alignItems: "flex-end", // This will handle the vertical alignment of the Earth image
-          justifyContent: "space-between", // This will handle the spacing around the Earth image
-          // paddingX: 0,
+          flexDirection: "row",
           boxSizing: "border-box",
-          overflow: "hidden"
+          overflow: "hidden",
+          gap: "10px"
         }}
       >
-        {/* MoST Logo */}
-        <Box
-          className="most-logo"
-          sx={{
-            flex: "1", // Allow the box to grow
-            display: "flex"
-            // paddingLeft: "50px",
-            // marginRight: "-50px",
+        <div
+          style={{
+            width: "100%",
+            height: "100%", // Enforces Box height
+            maxHeight: "100%",
+            display: "flex", // Use flex to control content alignment
+            justifyContent: "flex-start", // Align content to the left
+            alignItems: "flex-end", // Center content vertically and horizontally
+            boxSizing: "border-box"
           }}
         >
           <img
-            src={most_logo}
+            src={brcs_logo}
             style={{
-              width: "100%",
-              maxWidth: "400px",
-              position: "relative",
-              left: "50px",
-              bottom: "50px"
+              height: "100%",
+              objectFit: "contain"
             }}
-            alt="MoST Logo"
+            alt="BRCS Logo"
           />
-        </Box>
-
-        {/* Earth Image - fixed size */}
-        <Box
-          sx={{
-            flex: "0 0 auto",
-            width: earthImageSize,
-            mx: 5
+        </div>
+        <div
+          style={{
+            width: "100%",
+            height: "100%", // Enforces Box height
+            maxHeight: "100%",
+            display: "flex", // Use flex to control content alignment
+            boxSizing: "border-box",
+            justifyContent: "center", // Align content to the center
+            alignItems: "center" // Center content vertically and horizontally
           }}
         >
           <img
-            src={black_circle}
-            style={{ width: "100%", height: earthImageHeight_temp }}
+            src={earth_image}
+            style={{
+              height: "100%",
+              width: "100%",
+              objectFit: "contain",
+              display: "block"
+            }}
             alt="Earth"
           />
-        </Box>
-
-        {/* QR Code */}
-        <Box
-          className="qr-code"
-          sx={{
-            flex: "1", // Allow the box to grow
+        </div>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            maxHeight: "100%",
+            boxSizing: "border-box",
             display: "flex",
-            alignItems: "center", // Center the content within the box
-            justifyContent: "center", // Center the content within the box
-            paddingBottom: 10,
             flexDirection: "column",
-            position: "relative",
-            right: "-30px"
+            alignItems: "flex-end",
+            justifyContent: "center"
           }}
         >
           <Box
             sx={{
-              padding: 3,
-              borderRadius: 3,
-              backgroundColor: "rgba(0, 0, 0, .9)",
-              boxSizing: "border-box",
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "black",
+              borderRadius: "10px"
             }}
           >
-            <Typography
-              fontFamily={"FuturaTSNewMedium"}
-              fontSize={"1.5rem"}
-              textAlign="center"
-            >
-              Scan the QR Code for more <br />
-              about the Solar Eclipse Festival <br />
-              at the MOST!
-            </Typography>
-            <img src={qr_code} style={{ height: qrCodeSize }} alt="QR Code" />
-            <Typography
-              fontFamily={"Arial"}
-              fontSize={"1.5rem"}
-              letterSpacing={2}
-              mt={1}
-            >
-              most.org/solareclipse2024
+            <img
+              src={qr_code}
+              style={{
+                height: "80%",
+                objectFit: "contain",
+                display: "block"
+              }}
+              alt="Earth"
+            />
+            <Typography variant="body1" mt={1}>
+              https://tinyurl.com/as9wejz5
             </Typography>
           </Box>
-        </Box>
+        </div>
       </Box>
     </Box>
   );
