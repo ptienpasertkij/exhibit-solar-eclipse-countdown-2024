@@ -6,33 +6,41 @@ import most_logo from "./assets/img/MOSTlogo_white.png";
 import black_circle from "./assets/img/black_circle.png";
 import qr_code from "./assets/img/solar_eclipse_QR_code.png";
 import eclipse_logo from "./assets/img/eclipse_logo_png.png";
+import moment from "moment";
+import "moment-timezone";
 
 // Constants
-const eclipseDate = new Date("April 8, 2024 14:09:00 EDT");
 const earthImageSize = "348px";
 const earthImageHeight_temp = "350px";
 const qrCodeSize = "300px";
+const eclipseDate = moment.tz("2024-04-08 14:09", "America/New_York");
 
 export default function App() {
   const calculateTimeToEclipse = useCallback(() => {
-    const now = new Date();
-    const difference = eclipseDate - now;
+    const now = moment.tz("America/New_York"); // Current time in New York timezone
+    const difference = eclipseDate.diff(now); // Difference in milliseconds
 
+    // Convert milliseconds to total days, hours, and minutes
+    const duration = moment.duration(difference);
+    console.log(duration);
+    console.log("days", duration.asDays());
+    console.log("hours", duration.hours());
+    console.log("minutes", duration.minutes());
     return {
-      days: Math.abs(Math.floor(difference / (1000 * 60 * 60 * 24))),
-      hours: Math.abs(Math.floor((difference / (1000 * 60 * 60)) % 24)),
-      minutes: Math.abs(Math.floor((difference / 1000 / 60) % 60))
+      days: Math.floor(duration.asDays()), // Total full days
+      hours: duration.hours(), // Hours remaining after full days
+      minutes: duration.minutes() // Minutes remaining after full hours
     };
   }, []);
 
   // State to hold the countdown time
   const [time, setTime] = useState(calculateTimeToEclipse());
-  const [eventPassed, setEventPassed] = useState(new Date() > eclipseDate);
+  const [eventPassed, setEventPassed] = useState(moment() > eclipseDate);
 
   // Update the countdown time every minute
   useEffect(() => {
     const timer = setInterval(() => {
-      const currentTime = new Date();
+      const currentTime = moment();
       if (currentTime > eclipseDate) {
         setEventPassed(true);
       }
@@ -192,7 +200,7 @@ export default function App() {
               padding: 3,
               borderRadius: 3,
               backgroundColor: "rgba(0, 0, 0, .9)",
-              boxSizing: "border-box",
+              boxSizing: "border-box"
             }}
           >
             <Typography
